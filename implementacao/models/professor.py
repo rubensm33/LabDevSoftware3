@@ -1,7 +1,6 @@
-from sqlalchemy import ForeignKey, Column, Integer, String
+from sqlalchemy import ForeignKey, Column, Integer
 from sqlalchemy.orm import relationship
 from .user import User
-from config.database import Base
 
 
 class Professor(User):
