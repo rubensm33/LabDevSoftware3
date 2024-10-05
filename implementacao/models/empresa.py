@@ -8,4 +8,4 @@ class Empresa(User):
 
     id = Column(Integer, ForeignKey("users.id"), primary_key=True)
 
-    vantagem = relationship("Vantagem", back_populates="empresa")
+    vantagens = relationship("Vantagem", back_populates="empresa")
