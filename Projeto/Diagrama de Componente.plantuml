@@ -1,0 +1,38 @@
+@startuml
+package "Sistema de Mérito" {
+    [Frontend Web] --> [Backend API]
+    [Backend API] --> [Banco de Dados]
+    [Backend API] --> [Sistema de Emails]
+
+    component "Frontend Web" {
+        [Tela de Login]
+        [Tela de Cadastro de Aluno]
+        [Tela de Cadastro de Empresa]
+        [Tela de Extrato]
+        [Tela de Envio de Moedas]
+        [Tela de Troca de Moedas]
+    }
+
+    component "Backend API" {
+        [Gerenciamento de Alunos]
+        [Gerenciamento de Professores]
+        [Gerenciamento de Empresas]
+        [Controle de Moedas]
+        [Autenticação]
+        [Notificações]
+    }
+
+    component "Banco de Dados" {
+        [Tabela de Alunos]
+        [Tabela de Professores]
+        [Tabela de Empresas]
+        [Tabela de Transações]
+        [Tabela de Vantagens]
+    }
+
+    component "Sistema de Emails" {
+        [Envio de Email para Aluno]
+        [Envio de Email para Empresa]
+    }
+}
+@enduml
