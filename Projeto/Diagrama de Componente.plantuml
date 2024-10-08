@@ -28,6 +28,9 @@ package "Sistema de Mérito" {
         [Tabela de Empresas]
         [Tabela de Transações]
         [Tabela de Vantagens]
+        [Tabela de Instituições]
+        [Tabela de Transações Professor-Aluno]
+        [Tabela de Transações Aluno-Empresa]
     }
 
     component "Sistema de Emails" {

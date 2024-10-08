@@ -8,7 +8,6 @@ actor "Sistema de Autenticação" as auth
 
 usecase "Cadastrar Aluno" as UC01
 usecase "Consultar Extrato" as UC02
-usecase "Receber Moedas" as UC03
 usecase "Trocar Moedas" as UC04
 usecase "Notificação de Moedas" as UC05
 usecase "Cadastrar Vantagens" as UC06
@@ -19,7 +18,6 @@ usecase "Autenticar Usuário" as UC10
 
 aluno --> UC01
 aluno --> UC02
-aluno --> UC03
 aluno --> UC04
 aluno --> UC05
 aluno --> UC07
@@ -33,5 +31,8 @@ UC10 <|-- UC04
 UC10 <|-- UC06
 UC10 <|-- UC09
 auth --> UC10
+
+UC08 --> UC05 : <<include>>
+UC07 --> UC04 : <<include>>
 
 @enduml

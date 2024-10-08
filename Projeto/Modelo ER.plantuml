@@ -1,0 +1,71 @@
+@startuml
+entity "Aluno" {
+    + id : int [PK]
+    -- 
+    nome : String
+    email : String
+    cpf : String
+    rg : String
+    curso : String
+    saldoMoedas : int
+    instituicao_id : int [FK]
+}
+
+entity "Professor" {
+    + id : int [PK]
+    -- 
+    nome : String
+    saldoMoedas : int
+    instituicao_id : int [FK]
+}
+
+entity "Instituicao" {
+    + id : int [PK]
+    -- 
+    nome : String
+}
+
+entity "Transacao_Professor_Aluno" {
+    + id : int [PK]
+    -- 
+    professor_id : int [FK]
+    aluno_id : int [FK]
+    valor : int
+    motivo : String
+    data_transacao : Date
+}
+
+entity "Transacao_Aluno_Empresa" {
+    + id : int [PK]
+    -- 
+    aluno_id : int [FK]
+    empresa_id : int [FK]
+    vantagem_id : int [FK]
+    valor : int
+    data_transacao : Date
+}
+
+entity "Vantagem" {
+    + id : int [PK]
+    -- 
+    descricao : String
+    custo : int
+    imagem : String
+    empresa_id : int [FK]
+}
+
+entity "Empresa" {
+    + id : int [PK]
+    -- 
+    nome : String
+    descricao : String
+}
+
+Aluno }o--|| Instituicao : "pertence a"
+Professor }o--|| Instituicao : "trabalha em"
+Transacao_Professor_Aluno }o--|| Aluno : "refere-se a"
+Transacao_Professor_Aluno }o--|| Professor : "refere-se a"
+Transacao_Aluno_Empresa }o--|| Empresa : "refere-se a"
+Transacao_Aluno_Empresa }o--|| Vantagem : "utiliza"
+Vantagem }o--|| Empresa : "oferecida por"
+@enduml

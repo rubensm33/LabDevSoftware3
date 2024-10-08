@@ -27,17 +27,26 @@ class Instituicao {
     +listaAlunos: List<Aluno>
 }
 
-class Transacao {
+class TransacaoProfessorAluno {
     +data: Date
-    +tipo: String
     +valor: int
     +motivo: String
+    +professor: Professor
+    +aluno: Aluno
+}
+
+class TransacaoAlunoEmpresa {
+    +data: Date
+    +valor: int
+    +vantagem: Vantagem
+    +empresa: Empresa
 }
 
 class Vantagem {
     +descricao: String
     +custo: int
     +imagem: String
+    +empresa: Empresa
 }
 
 class Empresa {
@@ -48,8 +57,9 @@ class Empresa {
 
 Aluno --> "1" Instituicao : estuda em >
 Professor --> "1" Instituicao : trabalha em >
-Transacao --> "1" Aluno : refere >
-Transacao --> "1" Professor : refere >
+TransacaoProfessorAluno --> "1" Aluno : refere >
+TransacaoProfessorAluno --> "1" Professor : refere >
+TransacaoAlunoEmpresa --> "1" Empresa : refere >
 Vantagem --> "1" Empresa : oferecida por >
 
 @enduml
