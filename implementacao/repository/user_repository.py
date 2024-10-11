@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from schemas import user, items
-from models import user as user_model, scopes as scopes_model, items as items_model
+from schemas import user
+from models import user as user_model, scopes as scopes_model
 
 
 def get_user(db: Session, user_id: int):
@@ -25,15 +25,3 @@ def create_user(db: Session, user: user.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
-
-
-def get_items(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(items_model.Item).offset(skip).limit(limit).all()
-
-
-def create_user_item(db: Session, item: items.ItemCreate, user_id: int):
-    db_item = items_model.Item(**item.model_dump(), owner_id=user_id)
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
-    return db_item

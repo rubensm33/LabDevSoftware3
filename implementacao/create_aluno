@@ -1,0 +1,9 @@
+{
+    "email": "rubensmarcelo@gmail.com",
+    "nome": "Rubens",
+    "cpf": "12345678901",
+    "hashed_password":"secret",
+    "rg": "12345678",
+    "instituicao": "PUC Minas",
+    "curso": "Engenharia de Software"
+  }
