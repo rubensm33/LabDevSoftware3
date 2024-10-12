@@ -44,3 +44,7 @@ def get_aluno_saldo(db: Session, aluno_id: int):
         raise ValueError("Aluno não encontrado")
 
     return aluno.saldo_moedas
+
+
+def get_todos_alunos(db: Session):
+    return db.query(aluno_model.Aluno).all()

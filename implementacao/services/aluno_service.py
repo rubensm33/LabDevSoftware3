@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from repository.aluno_repository import create_aluno, get_aluno_saldo
+from repository.aluno_repository import create_aluno, get_aluno_saldo, get_todos_alunos
 from repository.instituicao_repository import get_instituicao_by_name
 from sqlalchemy.orm import Session
 from schemas.aluno import AlunoCreate
@@ -25,3 +25,12 @@ def consultar_saldo_aluno(db: Session, aluno_id: int):
         return saldo
     except ValueError as e:
         raise e
+
+
+
+
+def consultar_todos_alunos(db: Session):
+    alunos = get_todos_alunos(db)
+    if not alunos:
+        raise ValueError("Nenhum aluno encontrado.")
+    return alunos

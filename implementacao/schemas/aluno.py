@@ -1,4 +1,4 @@
-from .user import User, UserCreate
+from .user import User, UserCreate, UserBase
 from pydantic import BaseModel
 from .instituicao import InstituicaoBase
 
@@ -28,3 +28,11 @@ class AlunoSaldoResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+class AlunoConsulta(UserBase):
+    instituicao_aluno: InstituicaoBase
+    curso: str
+
+    class Config:
+        orm_mode = True
+
