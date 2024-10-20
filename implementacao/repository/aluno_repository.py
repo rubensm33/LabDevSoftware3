@@ -12,19 +12,24 @@ def create_aluno(db: Session, aluno: AlunoCreate):
 
     db_aluno = aluno_model.Aluno(**dict_aluno_data)
 
-    db_scope_me = scopes_model.UserScopes(user_id=db_aluno.id, scope="me")
-    db_scope_aluno = scopes_model.UserScopes(user_id=db_aluno.id, scope="aluno")
     db.add(db_aluno)
-    db.add(db_scope_me)
-    db.add(db_scope_aluno)
+
     db.commit()
     db.refresh(db_aluno)
+
     db_aluno = (
         db.query(aluno_model.Aluno)
         .options(joinedload(aluno_model.Aluno.instituicao_aluno))
         .filter(aluno_model.Aluno.id == db_aluno.id)
         .first()
     )
+    db_scope_me = scopes_model.UserScopes(user_id=db_aluno.id, scope="me")
+    db_scope_aluno = scopes_model.UserScopes(user_id=db_aluno.id, scope="aluno")
+    db.add(db_scope_me)
+    db.add(db_scope_aluno)
+    db.commit()
+    db.refresh(db_scope_me)
+    db.refresh(db_scope_aluno)
 
     return db_aluno
 
