@@ -1,14 +1,38 @@
-from .user import User
-
+from .user import User, UserCreate, UserBase
+from pydantic import BaseModel
+from .instituicao import InstituicaoBase
 
 class AlunoBase(User):
     cpf: str
     rg: str
-    instituicao: str
+    instituicao_aluno: InstituicaoBase
     curso: str
-    quantidade_moedas: int
-    
+    saldo_moedas: int
+
     class Config:
         orm_mode = True
 
+
+class AlunoCreate(BaseModel):
+    email: str
+    nome: str
+    cpf: str
+    hashed_password: str
+    rg: str
+    instituicao: str
+    curso: str
+
+class AlunoSaldoResponse(BaseModel):
+    aluno_id: int
+    saldo_moedas: int
+
+    class Config:
+        orm_mode = True
+
+class AlunoConsulta(UserBase):
+    instituicao_aluno: InstituicaoBase
+    curso: str
+
+    class Config:
+        orm_mode = True
 

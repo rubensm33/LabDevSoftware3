@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recompensa por Bom Comportamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .header {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+        .coin {
+            font-weight: bold;
+            color: #FFD700;
+            font-size: 24px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 0 0 8px 8px;
+        }
+        .footer p {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Parabéns, {{ nome }}!</h1>
+        </div>
+        <div class="content">
+            <p>O professor reconheceu seu <strong>excelente comportamento</strong> na faculdade e como forma de incentivo, você acaba de ganhar:</p>
+            <p class="coin">{{ moedas }} <span style="color: #FFD700;">moedas</span>!</p>
+            <p>Essas moedas podem ser trocadas por prêmios incríveis! Continue assim, estamos orgulhosos do seu progresso e comportamento.</p>
+            <p>Atenciosamente,<br>Equipe {{ faculdade }}</p>
+        </div>
+        <div class="footer">
+            <p>Esta é uma mensagem automática. Não responda a este e-mail.</p>
+        </div>
+    </div>
+</body>
+</html>

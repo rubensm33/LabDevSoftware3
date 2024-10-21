@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
-from .user import User
+from models.user import User
 
 
 class Aluno(User):
@@ -8,6 +8,9 @@ class Aluno(User):
 
     id = Column(Integer, ForeignKey("users.id"), primary_key=True)
     instituicao_id = Column(Integer, ForeignKey("instituicoes.id"))
+    cpf = Column(String(11), nullable=False)
+    rg = Column(String(8), nullable=False)
+    curso = Column(String(255), nullable=False)
     saldo_moedas = Column(Integer)
 
-    instituicao = relationship("Instituicao", back_populates="alunos")
+    instituicao_aluno = relationship("Instituicao", back_populates="alunos_instituicao")
