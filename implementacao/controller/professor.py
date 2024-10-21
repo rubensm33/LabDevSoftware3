@@ -50,3 +50,12 @@ def listar_todos_alunos(
         return alunos
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+# Rota para enviar moedas para um aluno
+@router.post("/professor/enviar-moedas")
+def enviar_moedas(aluno_id: int, valor: int, motivo: str, db: Session = Depends(get_db)):
+    # Cria a transação de envio de moedas
+    transacao = transacao_model.TransacaoProfessorAluno(aluno_id=aluno_id, valor=valor, motivo=motivo)
+    db.add(transacao)
+    db.commit()
+    return {"message": "Moedas enviadas com sucesso"}

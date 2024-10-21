@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transações do Professor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transações Realizadas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Transação</th>
+                    <th>Aluno</th>
+                    <th>Valor</th>
+                    <th>Motivo</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody id="transacoes-tabela">
+                <!-- As transações serão inseridas aqui -->
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+        // Função para buscar as transações feitas pelo professor
+        async function listarTransacoesProfessor() {
+            const response = await fetch('/api/professor/transacoes'); // Rota da API
+            const transacoes = await response.json();
+            
+            const tabela = document.getElementById('transacoes-tabela');
+            tabela.innerHTML = '';  // Limpa a tabela antes de adicionar novas linhas
+            
+            transacoes.forEach(transacao => {
+                const row = `<tr>
+                    <td>${transacao.id}</td>
+                    <td>${transacao.aluno_nome}</td>
+                    <td>${transacao.valor}</td>
+                    <td>${transacao.motivo}</td>
+                    <td>${transacao.data_transacao}</td>
+                </tr>`;
+                tabela.innerHTML += row;
+            });
+        }
+        
+        // Chama a função ao carregar a página
+        window.onload = listarTransacoesProfessor;
+    </script>
+</body>
+</html>

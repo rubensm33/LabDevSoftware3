@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saldo de Moedas do Professor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        p {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Saldo de Moedas</h1>
+        <p id="saldo">Carregando saldo...</p>
+    </div>
+    
+    <script>
+        // Função para buscar o saldo do professor
+        async function buscarSaldoProfessor() {
+            const response = await fetch('/api/professor/saldo'); // Rota da API
+            const data = await response.json();
+            document.getElementById('saldo').innerText = `Você possui ${data.saldo} moedas.`;
+        }
+        
+        // Chama a função ao carregar a página
+        window.onload = buscarSaldoProfessor;
+    </script>
+</body>
+</html>
