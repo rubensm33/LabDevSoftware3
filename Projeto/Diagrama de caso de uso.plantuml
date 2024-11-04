@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+
+actor "Aluno" as aluno
+actor "Professor" as professor
+actor "Empresa Parceira" as empresa
+actor "Sistema de Autenticação" as auth
+
+usecase "Cadastrar Aluno" as UC01
+usecase "Consultar Extrato" as UC02
+usecase "Trocar Moedas" as UC04
+usecase "Notificação de Moedas" as UC05
+usecase "Cadastrar Vantagens" as UC06
+usecase "Resgatar Vantagem" as UC07
+usecase "Enviar Moedas" as UC08
+usecase "Cadastrar Empresa" as UC09
+usecase "Autenticar Usuário" as UC10
+
+aluno --> UC01
+aluno --> UC02
+aluno --> UC04
+aluno --> UC05
+aluno --> UC07
+professor --> UC02
+professor --> UC08
+empresa --> UC06
+empresa --> UC09
+UC10 <|-- UC01
+UC10 <|-- UC08
+UC10 <|-- UC04
+UC10 <|-- UC06
+UC10 <|-- UC09
+auth --> UC10
+
+UC08 --> UC05 : <<include>>
+UC07 --> UC04 : <<include>>
+
+@enduml

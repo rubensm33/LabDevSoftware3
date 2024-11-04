@@ -11,7 +11,6 @@ import jwt
 from schemas.token import TokenData
 from utils.constants import *
 from config.database import get_db
-from jwt.exceptions import InvalidTokenError
 from passlib.context import CryptContext
 from pydantic import BaseModel, ValidationError
 
@@ -51,7 +50,7 @@ async def get_current_user(
             raise credentials_exception
         token_scopes = payload.get("scopes", [])
         token_data = TokenData(scopes=token_scopes, email=email)
-    except (InvalidTokenError, ValidationError):
+    except (ValidationError):
         raise credentials_exception
     user = get_user_by_email(db, email=token_data.email)
     if user is None:

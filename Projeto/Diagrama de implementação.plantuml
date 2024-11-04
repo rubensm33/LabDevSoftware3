@@ -1,0 +1,45 @@
+@startuml
+node "Cliente Web (Frontend)" {
+  [Tela de Login]
+  [Tela de Cadastro de Aluno]
+  [Tela de Cadastro de Empresa]
+  [Tela de Envio de Moedas]
+  [Tela de Troca de Moedas]
+  [Tela de Extrato]
+}
+
+node "Servidor (Backend API)" {
+  [Gerenciamento de Alunos]
+  [Gerenciamento de Professores]
+  [Gerenciamento de Empresas]
+  [Controle de Moedas]
+  [Notificações]
+  [Autenticação]
+}
+
+node "Banco de Dados" {
+  [Tabela de Alunos]
+  [Tabela de Professores]
+  [Tabela de Empresas]
+  [Tabela de Instituiçoes]
+  [Tabela de Transações Aluno-Empresa]
+  [Tabela de Transações Professor-Aluno]
+  [Tabela de Vantagens]
+  [Tabela de Escopo de Usuario]
+}
+
+node "Sistema de Emails" {
+  [Envio de Email para Aluno]
+  [Envio de Email para Empresa]
+}
+
+node "Empresas Parceiras" {
+  [Validação de Trocas]
+}
+
+Cliente_Web -down-> Servidor_Backend_API : HTTP/HTTPS
+Servidor_Backend_API -down-> Banco_de_Dados : JDBC/SQL
+Servidor_Backend_API -right-> Sistema_de_Emails : SMTP
+Servidor_Backend_API -right-> Empresas_Parceiras : Notificação de Email
+
+@enduml
