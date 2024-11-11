@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Vantagem</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mui/material@5.11.1/dist/material.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .form-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .form-box {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-box h4 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input-field {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        .input-field input,
+        .input-field textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .button {
+            width: 100%;
+            padding: 12px;
+            background-color: #634f79;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #6c5d80;
+        }
+        .dropzone {
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .dropzone .icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .background-image {
+            background-image: url('fotoDeFundo.jpg');
+            background-size: cover;
+            background-position: center;
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <div class="form-box">
+            <h4>Cadastre sua vantagem</h4>
+            <form id="formVantagem">
+                <div class="input-field">
+                    <input type="text" id="nome" placeholder="Nome" required>
+                </div>
+                <div class="input-field">
+                    <textarea id="descricao" placeholder="Descrição" rows="4" required></textarea>
+                </div>
+                <div class="input-field">
+                    <input type="number" id="valor" placeholder="Valor" required>
+                </div>
+                <div class="input-field">
+                    <div class="dropzone" id="dropzone">
+                        <div class="icon">📤</div>
+                        <p>Arraste e solte a imagem aqui ou clique para selecionar o arquivo</p>
+                        <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                    </div>
+                    <div id="fileName" style="margin-top: 10px;"></div>
+                </div>
+                <button type="submit" class="button">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+    <div class="background-image"></div>
+</div>
+
+<script>
+    // Função para manipulação do upload de imagem
+    const dropzone = document.getElementById("dropzone");
+    const fileInput = document.getElementById("fileInput");
+    const fileName = document.getElementById("fileName");
+
+    dropzone.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            fileName.textContent = `Arquivo selecionado: ${file.name}`;
+        }
+    });
+
+    // Função para manipulação do envio do formulário
+    document.getElementById("formVantagem").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById("nome").value;
+        const descricao = document.getElementById("descricao").value;
+        const valor = document.getElementById("valor").value;
+
+        if (!nome || !descricao || !valor) {
+            alert("Por favor, preencha todos os campos!");
+            return;
+        }
+
+        // A lógica de envio de dados para a API vai aqui (simulada)
+        console.log("Vantagem cadastrada:", { nome, descricao, valor });
+
+        alert("Vantagem cadastrada com sucesso!");
+    });
+</script>
+
+</body>
+</html>

@@ -1,70 +1,202 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Empresa Parceira</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #4CAF50;
-            text-align: center;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            margin: 10px 0 5px;
-        }
-        input, textarea {
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro Empresa</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 40%;
+    }
+
+    .form-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #634f79;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #6c5d80;
+    }
+
+    .submit-button {
+      background-color: #634f79;
+      width: 100%;
+    }
+
+    .image-container {
+      background-image: url('assets/empresa.png');
+      background-size: cover;
+      background-position: center;
+      width: 60%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .image-text {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .login-button {
+      padding: 10px 20px;
+      background-color: #634f79;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .login-button:hover {
+      background-color: #6c5d80;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .form-container {
+        width: 90%;
+        margin-bottom: 20px;
+      }
+
+      .image-container {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cadastro de Empresa Parceira</h1>
-        <form action="/cadastro-empresa" method="POST">
-            <label for="nome">Nome da Empresa:</label>
-            <input type="text" id="nome" name="nome" required>
 
-            <label for="descricao">Descrição:</label>
-            <textarea id="descricao" name="descricao" rows="5" required></textarea>
+  <div class="container">
+    <!-- Formulário de Cadastro -->
+    <div class="form-container">
+      <h2 class="form-title">Realize seu cadastro</h2>
+      
+      <form id="cadastro-empresa" class="form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required placeholder="Nome da empresa">
 
-            <label for="imagem">Foto (URL):</label>
-            <input type="text" id="imagem" name="imagem">
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" required placeholder="CNPJ da empresa">
 
-            <button type="submit">Cadastrar</button>
-        </form>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required placeholder="E-mail de contato">
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required placeholder="Senha de acesso">
+
+        <button type="submit" class="submit-button">Cadastrar</button>
+      </form>
     </div>
+
+    <!-- Imagem de Fundo -->
+    <div class="image-container">
+      <h3 class="image-text">Possui conta?</h3>
+      <button class="login-button" onclick="window.location.href='/login'">Login</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('cadastro-empresa').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const cnpj = document.getElementById('cnpj').value;
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      const empresa = {
+        nome,
+        cnpj,
+        email,
+        senha,
+      };
+
+      try {
+        const response = await fetch('https://your-api-url/empresa/cadastrar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(empresa),
+        });
+        const data = await response.json();
+        if (data.success) {
+          alert('Empresa cadastrada com sucesso!');
+          window.location.href = '/';
+        } else {
+          alert('Erro ao cadastrar empresa');
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    });
+  </script>
+
 </body>
 </html>

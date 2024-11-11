@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio de Moedas</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mui/material@5.11.1/dist/material.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .form-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+        }
+        .form-control {
+            min-width: 500px;
+            margin: auto;
+        }
+        .select-container {
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="margin-top: 230px; text-align: center;">
+        <h1>Olá, selecione o estudante que você deseja beneficiar:</h1>
+        <h2>Você tem o total de <span id="qtdMoedas">0</span> </h2>
+    </div>
+
+    <div class="form-container">
+        <div class="form-control">
+            <label for="aluno-select">Selecione um aluno</label>
+            <select id="aluno-select" name="aluno" class="select-container">
+             
+            </select>
+
+            <label for="motivo">Motivo</label>
+            <input id="motivo" name="motivo" type="text" class="select-container" required />
+
+            <label for="quantidade">Quantidade </label>
+            <input id="quantidade" name="quantidade" type="number" class="select-container" required />
+
+            <button id="send-button" style="background-color: #634f79; color: white; border: none; padding: 10px 20px; cursor: pointer; margin-top: 16px;">Enviar</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const alunoSelect = document.getElementById('aluno-select');
+        const qtdMoedasElement = document.getElementById('qtdMoedas');
+        const motivoInput = document.getElementById('motivo');
+        const quantidadeInput = document.getElementById('quantidade');
+        const sendButton = document.getElementById('send-button');
+
+        let alunos = [];
+        let qtdMoedas = 0;
+
+        const listarAlunos = async () => {
+            try {
+                const response = await axios.get('aluno/alunos');
+                alunos = response.data;
+                alunos.forEach(aluno => {
+                    const option = document.createElement('option');
+                    option.value = aluno.id;
+                    option.textContent = aluno.nome;
+                    alunoSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Erro ao buscar alunos:", error);
+            }
+        };
+
+        const buscarMoedasProfessor = async () => {
+            try {
+                const response = await axios.get('professor/getQuantidadeMoedas/1');
+                qtdMoedas = response.data;
+                qtdMoedasElement.textContent = qtdMoedas;
+            } catch (error) {
+                console.error("Erro ao buscar moedas do professor:", error);
+            }
+        };
+
+        const handleSendClick = async () => {
+            const idAluno = alunoSelect.value;
+            const motivo = motivoInput.value;
+            const quantidade = quantidadeInput.value;
+
+            if (!idAluno || !motivo || !quantidade) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            const doacao = {
+                idAluno: Number(idAluno),
+                idProfessor: 1,
+                valor: Number(quantidade),
+                descricao: motivo
+            };
+
+            try {
+                await axios.post('doacao/cadastrar', doacao);
+                alert('Moedas enviadas com sucesso!');
+                // Redirecionar ou realizar outras ações após o envio
+            } catch (error) {
+                console.error("Erro ao enviar moedas:", error);
+            }
+        };
+
+        // Inicializando os dados
+        listarAlunos();
+        buscarMoedasProfessor();
+
+        // Adicionando evento ao botão de envio
+        sendButton.addEventListener('click', handleSendClick);
+    });
+</script>
+
+</body>
+</html>

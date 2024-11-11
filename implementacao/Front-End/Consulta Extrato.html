@@ -1,71 +1,115 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extrato de Moedas</title>
+    <title>Extrato</title>
     <style>
+        /* Estilos simples para o layout */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            color: #333;
         }
+
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .saldo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 20px;
+        }
+
+        .titulo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 90px;
+            margin-bottom: 30px;
+        }
+
+        .extrato {
+            background-color: #f0f0f0;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
         }
-        h1 {
-            color: #4CAF50;
-            text-align: center;
+
+        .transacao {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+
+        .transacao:last-child {
+            margin-bottom: 0;
         }
-        th, td {
+
+        .transacao span {
+            font-size: 14px;
+        }
+
+        .barra {
+            background-color: #634f79;
+            color: white;
             padding: 10px;
-            border: 1px solid #ccc;
             text-align: center;
+            font-size: 18px;
         }
-        th {
-            background-color: #f4f4f4;
+
+        .botao {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #634f79;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .botao:hover {
+            background-color: #6c5d80;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Extrato de Moedas</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Transação</th>
-                    <th>Moedas</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>20/10/2024</td>
-                    <td>Envio de Moedas</td>
-                    <td>-20</td>
-                    <td>Reconhecimento por participação ativa</td>
-                </tr>
-                <tr>
-                    <td>15/10/2024</td>
-                    <td>Recebimento de Moedas</td>
-                    <td>50</td>
-                    <td>Bom comportamento</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="barra">
+        <p>Barra de Navegação</p>
     </div>
+
+    <div class="container">
+        <div class="saldo">
+            <p>Saldo atual: [por qtd aqui] 🪙</p>
+        </div>
+
+        <div class="titulo">
+            <p>Olá, [Nome do Usuário]! Seu extrato de transação é:</p>
+        </div>
+
+        <div class="extrato">
+           
+            <div class="transacao">
+                <span>Profissional 1</span>
+                <span>Envio</span>
+            </div>
+            <div class="transacao">
+                <span>Profissional 2</span>
+                <span>Recebimento</span>
+            </div>
+           
+        </div>
+
+        <button class="botao">Nova Transação</button>
+    </div>
+
 </body>
+
 </html>
