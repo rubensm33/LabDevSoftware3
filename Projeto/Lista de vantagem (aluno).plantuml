@@ -1,0 +1,16 @@
+@startuml
+actor Aluno as A
+participant Sistema as S
+participant BancoDeDados as BD
+
+A -> S : Login
+S -> BD : Validar Credenciais
+BD --> S : Credenciais Válidas
+S --> A : Acesso Concedido
+
+A -> S : Solicitar Lista de Vantagens
+S -> BD : Buscar Vantagens Disponíveis
+BD --> S : Lista de Vantagens
+S --> A : Exibir Lista de Vantagens
+
+@enduml

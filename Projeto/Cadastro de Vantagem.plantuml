@@ -1,0 +1,19 @@
+@startuml
+actor EmpresaParceira as EP
+participant Sistema as S
+participant BancoDeDados as BD
+
+EP -> S : Login
+S -> BD : Validar Credenciais
+BD --> S : Credenciais Válidas
+S --> EP : Acesso Concedido
+
+EP -> S : Solicitar Cadastro de Vantagem (nome, descrição, foto, custo em moedas)
+S -> BD : Verificar se empresa está cadastrada
+BD --> S : Empresa Válida
+S -> BD : Armazenar dados da nova vantagem
+
+BD --> S : Confirmação de Armazenamento
+S --> EP : Vantagem Cadastrada com Sucesso
+
+@enduml
