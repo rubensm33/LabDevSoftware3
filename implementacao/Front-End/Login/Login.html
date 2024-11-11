@@ -121,38 +121,31 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            const user = {
-                email,
-                senha: password
-            };
+            const formData = new URLSearchParams();
+            formData.append('username', email);
+            formData.append('password', password);
 
             try {
-                const response = await fetch('usuario/login', {
+                const response = await fetch('http://localhost:8000/token/', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: JSON.stringify(user)
+                    body: formData
                 });
 
-                const data = await response.json();
-                
-                if (data) {
-                    // Simula o processo de login e guarda a sessão do usuário
-                    sessionStorage.setItem('user', JSON.stringify(data));
-
-                    const tipoCadastro = data.tipoCadastro;
-                    console.log(tipoCadastro);
-
-                    if (tipoCadastro === "Professor") {
-                        window.location.href = "/enviar";
-                    } else {
-                        window.location.href = "/vantagens";
-                    }
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.access_token);
+                    alert('Login realizado com sucesso!');
+                    window.location.href = '/extrato'; // Redireciona para a página de extrato
+                } else {
+                    const errorData = await response.json();
+                    alert(`Erro ao efetuar login: ${errorData.detail}`);
                 }
             } catch (error) {
-                alert('Erro ao efetuar login! Verifique os dados');
                 console.error('Erro:', error);
+                alert('Erro ao efetuar login.');
             }
         });
     </script>
