@@ -6,7 +6,6 @@
     <title>Login</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Estilos gerais */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -18,7 +17,7 @@
         }
 
         .left-section {
-            background-image: url('assets/moeda.png'); /* Ajuste o caminho da imagem */
+            background-image: url('assets/moeda.png'); 
             background-size: cover;
             background-position: center;
             flex: 1;
@@ -94,14 +93,12 @@
 <body>
 
     <div class="container">
-        <!-- Seção Esquerda -->
         <div class="left-section">
             <div class="subtitle">Não possui conta?</div>
             <button class="button" onclick="window.location.href='/aluno/cadastro'">Cadastrar Aluno</button>
             <button class="button" onclick="window.location.href='/empresa/cadastro'">Cadastrar Empresa</button>
         </div>
 
-        <!-- Seção Direita -->
         <div class="right-section">
             <div class="form-container">
                 <div class="title">Realize seu Login</div>
@@ -114,40 +111,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const formData = new URLSearchParams();
-            formData.append('username', email);
-            formData.append('password', password);
-
-            try {
-                const response = await fetch('http://localhost:8000/token/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    localStorage.setItem('token', data.access_token);
-                    alert('Login realizado com sucesso!');
-                    window.location.href = '/extrato'; // Redireciona para a página de extrato
-                } else {
-                    const errorData = await response.json();
-                    alert(`Erro ao efetuar login: ${errorData.detail}`);
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao efetuar login.');
-            }
-        });
-    </script>
+    <script src="login.js"></script>
 </body>
 </html>

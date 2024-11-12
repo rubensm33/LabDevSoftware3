@@ -1,6 +1,6 @@
 async function fetchExtrato() {
         try {
-            const saldoResponse = await fetch('http://localhost:8000/alunos/saldo', {
+            const saldoResponse = await fetch('http://127.0.0.1:8000/alunos/saldo', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -8,7 +8,7 @@ async function fetchExtrato() {
                 }
             });
 
-            const transacoesResponse = await fetch('http://localhost:8000/alunos/transacoes', {
+            const transacoesResponse = await fetch('http://127.0.0.1:8000/alunos/transacoes', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
