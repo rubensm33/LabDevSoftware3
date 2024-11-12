@@ -1,19 +1,25 @@
 @startuml
 actor EmpresaParceira as EP
-participant Sistema as S
+participant EmpresaParceiraController as EPC
+participant EmpresaParceiraService as EPS
+participant VantagemRepository as VR
 participant BancoDeDados as BD
 
-EP -> S : Login
-S -> BD : Validar Credenciais
-BD --> S : Credenciais Válidas
-S --> EP : Acesso Concedido
+EP -> EPC : Login
+EPC -> EPS : Validar Credenciais
+EPS -> BD : Consultar Credenciais no Banco de Dados
+BD --> EPS : Credenciais Válidas
+EPS --> EPC : Acesso Concedido
+EPC --> EP : Acesso Concedido
 
-EP -> S : Solicitar Cadastro de Vantagem (nome, descrição, foto, custo em moedas)
-S -> BD : Verificar se empresa está cadastrada
-BD --> S : Empresa Válida
-S -> BD : Armazenar dados da nova vantagem
+EP -> EPC : Solicitar Cadastro de Vantagem (nome, descrição, foto, custo em moedas)
+EPC -> EPS : Validar e processar cadastro
+EPS -> BD : Verificar se empresa está cadastrada
+BD --> EPS : Empresa Válida
+EPS -> VR : Armazenar dados da nova vantagem
 
-BD --> S : Confirmação de Armazenamento
-S --> EP : Vantagem Cadastrada com Sucesso
+VR --> EPS : Confirmação de Armazenamento
+EPS --> EPC : Vantagem Cadastrada com Sucesso
+EPC --> EP : Vantagem Cadastrada com Sucesso
 
 @enduml

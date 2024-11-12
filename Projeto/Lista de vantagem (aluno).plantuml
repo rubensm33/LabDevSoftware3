@@ -1,16 +1,24 @@
 @startuml
 actor Aluno as A
-participant Sistema as S
+participant AlunoController as AC
+participant AlunoService as AS
+participant VantagemRepository as VR
 participant BancoDeDados as BD
 
-A -> S : Login
-S -> BD : Validar Credenciais
-BD --> S : Credenciais Válidas
-S --> A : Acesso Concedido
+A -> AC : Login
+AC -> AS : Validar Credenciais
+AS -> BD : Consultar Credenciais no Banco de Dados
+BD --> AS : Credenciais Válidas
+AS --> AC : Acesso Concedido
+AC --> A : Acesso Concedido
 
-A -> S : Solicitar Lista de Vantagens
-S -> BD : Buscar Vantagens Disponíveis
-BD --> S : Lista de Vantagens
-S --> A : Exibir Lista de Vantagens
+A -> AC : Solicitar Lista de Vantagens
+AC -> AS : Processar solicitação de vantagens
+AS -> VR : Buscar Vantagens Disponíveis
+VR -> BD : Consultar lista de vantagens no Banco de Dados
+BD --> VR : Lista de Vantagens
+VR --> AS : Lista de Vantagens
+AS --> AC : Lista de Vantagens
+AC --> A : Exibir Lista de Vantagens
 
 @enduml
