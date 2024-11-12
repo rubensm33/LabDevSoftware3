@@ -6,7 +6,6 @@
     <title>Login</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* Estilos gerais */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -18,7 +17,7 @@
         }
 
         .left-section {
-            background-image: url('assets/moeda.png'); /* Ajuste o caminho da imagem */
+            background-image: url('assets/moeda.png'); 
             background-size: cover;
             background-position: center;
             flex: 1;
@@ -94,14 +93,12 @@
 <body>
 
     <div class="container">
-        <!-- Seção Esquerda -->
         <div class="left-section">
             <div class="subtitle">Não possui conta?</div>
             <button class="button" onclick="window.location.href='/aluno/cadastro'">Cadastrar Aluno</button>
             <button class="button" onclick="window.location.href='/empresa/cadastro'">Cadastrar Empresa</button>
         </div>
 
-        <!-- Seção Direita -->
         <div class="right-section">
             <div class="form-container">
                 <div class="title">Realize seu Login</div>
@@ -114,47 +111,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const user = {
-                email,
-                senha: password
-            };
-
-            try {
-                const response = await fetch('usuario/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                });
-
-                const data = await response.json();
-                
-                if (data) {
-                    // Simula o processo de login e guarda a sessão do usuário
-                    sessionStorage.setItem('user', JSON.stringify(data));
-
-                    const tipoCadastro = data.tipoCadastro;
-                    console.log(tipoCadastro);
-
-                    if (tipoCadastro === "Professor") {
-                        window.location.href = "/enviar";
-                    } else {
-                        window.location.href = "/vantagens";
-                    }
-                }
-            } catch (error) {
-                alert('Erro ao efetuar login! Verifique os dados');
-                console.error('Erro:', error);
-            }
-        });
-    </script>
+    <script src="login.js"></script>
 </body>
 </html>
