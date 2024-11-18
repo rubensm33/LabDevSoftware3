@@ -1,13 +1,28 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 */__pycache__/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Ignore todos os diretórios __pycache__ e arquivos compilados Python
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+
 pycache__/
 *.py[cod]
 *$py.class
 *.py[cod]
 # C extensions
 *.so
-
+/implementacao/*/__pycache__/*
 # Distribution / packaging
 .Python
 build/

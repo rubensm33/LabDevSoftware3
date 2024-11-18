@@ -48,3 +48,8 @@ def consultar_transacoes(
         return transacoes
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@router.get("/", response_model=list[aluno_schema.AlunoBase])
+def read_alunos(db: Session = Depends(get_db)):
+    users = aluno_repository.get_todos_alunos(db)
+    return users

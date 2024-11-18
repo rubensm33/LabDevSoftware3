@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from config.database import Base
+from sqlalchemy.dialects.mysql import MEDIUMTEXT
 
 
 class Vantagem(Base):
@@ -8,7 +9,7 @@ class Vantagem(Base):
 
     id = Column(Integer, primary_key=True)
     descricao = Column(String(255), nullable=False)
-    foto = Column(String(255), nullable=True)
+    foto = Column(MEDIUMTEXT, nullable=True)
     custo_moedas = Column(Integer, nullable=False)
     empresa_id = Column(Integer, ForeignKey("empresas.id"))
 

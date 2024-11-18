@@ -1,4 +1,3 @@
-# repository/empresa_repository.py
 from sqlalchemy.orm import Session
 from models.empresa import Empresa
 from models.vantagem import Vantagem
@@ -9,16 +8,20 @@ from services.token_service import hash_password
 
 def criar_empresa_com_vantagens(db: Session, nome: str, email: str, senha: str, vantagens_data: list):
     hashed_password = hash_password(senha)
+
     empresa_user = Empresa(nome=nome, email=email, hashed_password=hashed_password, role="empresa")
+
+    db.add(empresa_user)
+    db.commit()
+    db.refresh(empresa_user)
 
     scope_me = UserScopes(user_id=empresa_user.id, scope="me")
     scope_empresa = UserScopes(user_id=empresa_user.id, scope="empresa")
-
-    db.add(empresa_user)
     db.add(scope_me)
     db.add(scope_empresa)
     db.commit()
-    db.refresh(empresa_user)
+    db.refresh(scope_me)
+    db.refresh(scope_empresa)
 
     for vantagem_data in vantagens_data:
         vantagem = Vantagem(
