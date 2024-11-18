@@ -1,4 +1,3 @@
-# controllers/professor_controller.py
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Security
 from sqlalchemy.orm import Session

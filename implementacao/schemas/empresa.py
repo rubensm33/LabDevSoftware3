@@ -21,3 +21,21 @@ class EmpresaResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+class VantagemResponse(BaseModel):
+    id: int
+    descricao: str
+    foto: Optional[str]
+    custo_moedas: int
+
+    class Config:
+        orm_mode = True
+class EmpresaHome(BaseModel):
+    id: int
+    nome: str
+    email: str
+
+
+    class Config:
+        orm_mode = True
+
