@@ -4,7 +4,31 @@ from models.vantagem import Vantagem
 from models.scopes import UserScopes
 from models.user import User
 from services.token_service import hash_password
+from models.vantagem import Vantagem
 
+def criar_vantagem(db: Session, empresa_id: int, descricao: str, foto: str, custo_moedas: int):
+    vantagem = Vantagem(
+        descricao=descricao,
+        foto=foto,
+        custo_moedas=custo_moedas,
+        empresa_id=empresa_id
+    )
+    db.add(vantagem)
+    db.commit()
+    db.refresh(vantagem)
+    return vantagem
+
+def atualizar_vantagem(db: Session, vantagem_id: int, descricao: str, foto: str, custo_moedas: int):
+    vantagem = db.query(Vantagem).filter(Vantagem.id == vantagem_id).first()
+    if not vantagem:
+        raise ValueError("Vantagem não encontrada.")
+    
+    vantagem.descricao = descricao
+    vantagem.foto = foto
+    vantagem.custo_moedas = custo_moedas
+    db.commit()
+    db.refresh(vantagem)
+    return vantagem
 
 def criar_empresa_com_vantagens(db: Session, nome: str, email: str, senha: str, vantagens_data: list):
     hashed_password = hash_password(senha)

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from config.database import get_db
-from schemas.vantagem import ListaVantagensResponse
+from schemas.vantagem import ListaVantagensResponse, VantagemCreate, VantagemUpdate, VantagemResponse
 from services.empresa_service import cadastrar_empresa
 from schemas.empresa import EmpresaCreate, EmpresaResponse, EmpresaHome
-from services.vantagem_service import listar_vantagens
+from services.vantagem_service import listar_vantagens, criar_vantagem_service, atualizar_vantagem_service
 from models.empresa import Empresa
 
 router = APIRouter(prefix="/empresas")
@@ -70,3 +70,21 @@ def listar_vantagens_empresa(empresa_id: int, db: Session = Depends(get_db)):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Erro ao listar vantagens: {str(e)}")
+
+
+@router.post("/{empresa_id}/vantagens", response_model=VantagemResponse)
+def criar_vantagem(empresa_id: int, vantagem_data: VantagemCreate, db: Session = Depends(get_db)):
+    try:
+        vantagem = criar_vantagem_service(db=db, empresa_id=empresa_id, **vantagem_data.dict())
+        return vantagem
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.put("/vantagens/{vantagem_id}", response_model=VantagemResponse)
+def atualizar_vantagem(vantagem_id: int, vantagem_data: VantagemUpdate, db: Session = Depends(get_db)):
+    try:
+        vantagem = atualizar_vantagem_service(db=db, vantagem_id=vantagem_id, **vantagem_data.dict())
+        return vantagem
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
