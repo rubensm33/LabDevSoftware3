@@ -9,6 +9,7 @@ import TransacoesAluno from "./components/TransacoesAluno";
 import ProfessorHome from "./components/ProfessorHome";
 import DoacaoMoeda from "./components/DoacaoMoeda";
 import TransacoesProfessor from "./components/TransacoesProfessor";
+import ManageVantagens from "./components/ManageVantagens";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/professor" element={<ProfessorHome />} />
   <Route path="/professor/doacao/:alunoId" element={<DoacaoMoeda />} />
   <Route path="/professor/transacoes" element={<TransacoesProfessor />} />
+  <Route path="/empresa/:empresaId/manage-vantagens" element={<ManageVantagens />} />
     </Routes>
   );
 }

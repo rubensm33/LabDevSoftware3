@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Security
 from sqlalchemy.orm import Session
 from config.database import get_db
 from schemas.vantagem import ListaVantagensResponse, VantagemCreate, VantagemUpdate, VantagemResponse
@@ -6,6 +6,9 @@ from services.empresa_service import cadastrar_empresa
 from schemas.empresa import EmpresaCreate, EmpresaResponse, EmpresaHome
 from services.vantagem_service import listar_vantagens, criar_vantagem_service, atualizar_vantagem_service
 from models.empresa import Empresa
+from models.user import User
+from typing import Annotated
+from services.user_service import get_current_user
 
 router = APIRouter(prefix="/empresas")
 
@@ -73,7 +76,14 @@ def listar_vantagens_empresa(empresa_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/{empresa_id}/vantagens", response_model=VantagemResponse)
-def criar_vantagem(empresa_id: int, vantagem_data: VantagemCreate, db: Session = Depends(get_db)):
+def criar_vantagem(
+    empresa_id: int,
+    vantagem_data: VantagemCreate,
+    current_user: Annotated[User, Security(get_current_user, scopes=["empresa"])],
+    db: Session = Depends(get_db)
+):
+    if current_user.id != empresa_id:
+        raise HTTPException(status_code=403, detail="Acesso negado")
     try:
         vantagem = criar_vantagem_service(db=db, empresa_id=empresa_id, **vantagem_data.dict())
         return vantagem
@@ -82,7 +92,17 @@ def criar_vantagem(empresa_id: int, vantagem_data: VantagemCreate, db: Session =
 
 
 @router.put("/vantagens/{vantagem_id}", response_model=VantagemResponse)
-def atualizar_vantagem(vantagem_id: int, vantagem_data: VantagemUpdate, db: Session = Depends(get_db)):
+def atualizar_vantagem(
+    vantagem_id: int,
+    vantagem_data: VantagemUpdate,
+    current_user: Annotated[User, Security(get_current_user, scopes=["empresa"])],
+    db: Session = Depends(get_db)
+):
+    vantagem = db.query(vantagem).filter(vantagem.id == vantagem_id).first()
+    if not vantagem:
+        raise HTTPException(status_code=404, detail="Vantagem não encontrada")
+    if current_user.id != vantagem.empresa_id:
+        raise HTTPException(status_code=403, detail="Acesso negado")
     try:
         vantagem = atualizar_vantagem_service(db=db, vantagem_id=vantagem_id, **vantagem_data.dict())
         return vantagem
