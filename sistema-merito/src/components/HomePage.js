@@ -36,6 +36,8 @@ const HomePage = () => {
         navigate("/professor");
       } else if (user.role === "aluno") {
         navigate("/aluno");
+      } else if (user.role === "empresa") {  // Redireciona para o gerenciador de vantagens
+        navigate("/empresa/vantagens");
       } else {
         throw new Error("Função desconhecida. Contate o administrador.");
       }
@@ -81,3 +83,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+

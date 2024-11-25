@@ -9,7 +9,7 @@ import TransacoesAluno from "./components/TransacoesAluno";
 import ProfessorHome from "./components/ProfessorHome";
 import DoacaoMoeda from "./components/DoacaoMoeda";
 import TransacoesProfessor from "./components/TransacoesProfessor";
-import ManageVantagens from "./components/ManageVantagens";
+import ManageVantagens from "./components/ManageVantagens"; // Importação para o gerenciamento de vantagens
 
 function App() {
   return (
@@ -17,14 +17,13 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/register-student" element={<RegisterStudent />} />
       <Route path="/register-company" element={<RegisterCompany />} />
-      <Route path="/aluno" element={<AlunoHome />} />
       <Route path="/aluno/empresas/:empresaId/vantagens" element={<EmpresaVantagens />} />
       <Route path="/aluno" element={<AlunoHome />} />
       <Route path="/aluno/transacoes" element={<TransacoesAluno />} />
       <Route path="/professor" element={<ProfessorHome />} />
-  <Route path="/professor/doacao/:alunoId" element={<DoacaoMoeda />} />
-  <Route path="/professor/transacoes" element={<TransacoesProfessor />} />
-  <Route path="/empresa/:empresaId/manage-vantagens" element={<ManageVantagens />} />
+      <Route path="/professor/doacao/:alunoId" element={<DoacaoMoeda />} />
+      <Route path="/professor/transacoes" element={<TransacoesProfessor />} />
+      <Route path="/empresa/vantagens" element={<ManageVantagens />} />
     </Routes>
   );
 }

@@ -6,6 +6,7 @@ from services.empresa_service import cadastrar_empresa
 from schemas.empresa import EmpresaCreate, EmpresaResponse, EmpresaHome
 from services.vantagem_service import listar_vantagens, criar_vantagem_service, atualizar_vantagem_service
 from models.empresa import Empresa
+from models.vantagem import Vantagem
 from models.user import User
 from typing import Annotated
 from services.user_service import get_current_user
@@ -98,7 +99,7 @@ def atualizar_vantagem(
     current_user: Annotated[User, Security(get_current_user, scopes=["empresa"])],
     db: Session = Depends(get_db)
 ):
-    vantagem = db.query(vantagem).filter(vantagem.id == vantagem_id).first()
+    vantagem = db.query(Vantagem).filter(Vantagem.id == vantagem_id).first()
     if not vantagem:
         raise HTTPException(status_code=404, detail="Vantagem não encontrada")
     if current_user.id != vantagem.empresa_id:

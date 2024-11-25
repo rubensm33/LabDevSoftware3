@@ -24,6 +24,11 @@ const ManageVantagens = () => {
       }
 
       try {
+        const userResponse = await axios.get("http://localhost:8000/users/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        let empresaId = userResponse.data.id
         const response = await axios.get(
           `http://localhost:8000/empresas/${empresaId}/vantagens`,
           {
@@ -74,6 +79,11 @@ const ManageVantagens = () => {
 
   const handleAddVantagem = async () => {
     try {
+      const userResponse = await axios.get("http://localhost:8000/users/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      let empresaId = userResponse.data.id
       const response = await axios.post(
         `http://localhost:8000/empresas/${empresaId}/vantagens`,
         formData,

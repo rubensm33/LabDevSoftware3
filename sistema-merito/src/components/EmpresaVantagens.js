@@ -84,7 +84,7 @@ const EmpresaVantagens = () => {
       <aside className="vantagens-menu-lateral">
         <h3>Menu</h3>
         <ul>
-          <li onClick={() => navigate(`/empresa/${empresaId}/manage-vantagens`)}>Gerenciar Vantagens</li>
+
           <li onClick={() => navigate("/aluno/transacoes")}>Transações</li>
         </ul>
         <p onClick={() => navigate("/aluno")} className="vantagens-voltar-home">
